@@ -1,0 +1,109 @@
+
+:root{
+    --dark-yellow: rgb(182, 182, 30);
+    --light-yellow: #FFF714;
+    --gray-color: #353531;
+    --black-color: #0f0f0f;
+    --middle-font: 18px
+}
+
+.song-control{
+    color: white;
+    width: 30%;
+    display: inline-block;
+    margin-right: 5em;
+}
+
+
+.playing-now{
+    color: white;
+    text-align: center;
+    font-size: var(--middle-font)
+    
+}
+
+.playing-now span{
+    text-align: center;
+    font-weight: bold;
+}
+
+.playing-now i{
+    vertical-align: middle;
+}
+
+
+
+.album{
+    height: 10%;
+}
+
+.controlls{
+    display: block;
+    width: max-content;
+    margin: auto auto;
+    clear: both;
+}
+
+.controlls button{
+    /* border-radius: 5px;  */
+    margin: 0 10px 0 10px;
+    background-color: var(--gray-color) !important;
+}
+
+.controlls button:hover{
+    background-color: var(--dark-yellow);
+}
+
+.current-time{
+    color: white;
+    float: left;
+}
+
+.full-time{
+    color: white;
+    float: right;
+}
+
+.playing-now ~ p{
+    text-align: center;
+}
+
+
+
+.btn-previous, .btn-next{
+    position: relative;
+}
+
+
+/* ******************************************* */
+/* MEXENDO NA PLAYLIST */
+/* ******************************************* */
+
+.playlist{
+    color: white;
+    position: absolute;
+    left: 40%;
+    top: 100px;
+    font-size: var(--middle-font);
+    font-weight: bold;
+    max-width: 500px;
+}
+
+
+.playlist .lista > li{
+    background-color: var(--black-color);
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 1em;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
+.playlist .lista > li:hover{
+    background-color: #FFF714;
+}
+
+
+
+/* ******************************************* */
