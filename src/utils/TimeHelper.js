@@ -1,5 +1,5 @@
 class TimeHelper {
-    static format(value) {
+    static format(value = '') {
         let minutes = '';
         let seconds = '';
         let time = '';

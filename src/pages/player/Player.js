@@ -3,47 +3,8 @@ import React, { Component, Fragment } from 'react'
 import './player.css'
 import getMusic, { getAllMusics, getPlaylistLength } from '../../Musicas';
 import Playlist from '../../components/Playlist';
-import Album from '../../components/Album'
-import TimeHelper from '../../utils/TimeHelper';
-
-
-const Song = props => {
-    return (
-        <Fragment>
-            <p className="playing-now center-align"><span><i className="material-icons ">music_note</i> Playing now</span></p>
-            <p>{`${props.name} - ${props.artist}`}</p>
-            <Album src={`/img/album-${props.src}.jpg`} alt={props.alt || "Imagem da Música"} />
-            <audio onEnded={props.onEnded} src={`/songs/${props.src}.mp3`} ></audio>
-        </Fragment>
-    )
-}
-
-
-const ControlsBar = props => {
-    const icons = {
-        paused: "play_arrow",
-        playing: "pause"
-    }
-
-
-    return (
-        <div className="control-bar">
-
-            <span className="current-time">00:00</span> <span className="full-time">{props.music.time}</span>
-            <div className="controlls">
-                <button onClick={props.previousMusic} className='btn-small btn-previous waves-effect waves-yellow '><i className="material-icons">skip_previous</i></button>
-                <button onClick={props.toggle}
-                    className={props.status + " btn-toggle btn-large " + (props.status === 'playing' ? 'pulse btn-floating' : '')}>
-                    <i className="large material-icons ">{icons[props.status]}</i>
-                </button>
-                <button onClick={props.nextMusic} className='btn-small btn-next waves-effect waves-yellow ' ><i className="material-icons">skip_next</i></button>
-            </div>
-
-
-        </div>
-
-    )
-}
+import ControlsBar from '../../components/ControlsBar'
+import Song from '../../components/Song'
 
 
 class Player extends Component {
@@ -51,34 +12,26 @@ class Player extends Component {
         super(props)
         this.stateInicial = {
             musicID: 0,
-            status: 'paused'
+            paused: true,
+            currentTime: 0,
         }
         this.state = { ...this.stateInicial };
     }
 
 
-    componentDidMount() {
-        document.querySelector('audio').ontimeupdate = (e) => {
-            this.handleCurrentTime(Math.trunc(e.target.currentTime))
-        }
-    }
-
     handleCurrentTime = (value) => {
-        document.querySelector('.current-time').textContent = TimeHelper.format(value)
-
+        this.setState({ currentTime: value })
     }
 
     handlePlaylist = (id) => {
         this.setState({
             musicID: id,
-            status: 'paused'
+            paused: true,
         })
 
     }
 
     changeMusic = (option = 'next') => {
-
-
         let id = this.state.musicID;
 
         if (option === 'next') {
@@ -97,31 +50,24 @@ class Player extends Component {
             }
 
         }
-
-        document.querySelector('audio').pause();
-
         this.setState({
             musicID: id,
-            status: 'paused'
+            paused: true,
         })
     }
 
     toggle = () => {
-        const audio = document.querySelector("audio");
-        const button = document.querySelector('.btn-toggle');
-        this.handleCurrentTime()
-        button.classList.toggle('btn-floating')
-
-        if (audio.paused) {
-            audio.play();
+        const audio = document.querySelector('audio')
+        if (this.state.paused) {
+            audio.play()
             this.setState({
-                status: 'playing'
+                paused: false
             })
         }
         else {
-            audio.pause();
+            audio.pause()
             this.setState({
-                status: 'paused'
+                paused: true
             })
         }
     }
@@ -130,8 +76,8 @@ class Player extends Component {
         return (
             <Fragment>
                 <div className="song-control">
-                    <Song onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
-                    <ControlsBar music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} status={this.state.status} toggle={this.toggle} />
+                    <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
+                    <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} />
                 </div>
 
                 <Playlist PlayerComponent={this} handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />
