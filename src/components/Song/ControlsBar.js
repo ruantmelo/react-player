@@ -1,5 +1,5 @@
 import React from 'react'
-import TimeHelper from '../utils/TimeHelper'
+import TimeHelper from '../../utils/TimeHelper'
 import IconButton from '@material-ui/core/IconButton';
 
 import SkipNextRoundedIcon from '@material-ui/icons/SkipNextRounded';
@@ -26,19 +26,19 @@ const ControlsBar = props => {
     const classes = useStyles();
     return (
         <Grid container>
-
-            <Grid style = {{color: 'white'}} container direction="row" justify="space-between" alignItems="center">
+            <Grid></Grid>
+            <Grid style={{ color: 'white' }} container direction="row" justify="space-between" alignItems="center">
                 <Grid item>
-                    <span style = {{padding:'3px',borderRadius: '5px', backgroundColor: '#0d0d0c'}} className="current-time">{TimeHelper.format(props.currentTime)}</span>
+                    <span style={{ padding: '3px', borderRadius: '5px', backgroundColor: '#0d0d0c' }} className="current-time">{TimeHelper.format(props.currentTime)}</span>
                 </Grid>
                 <Grid item>
-                    <span style = {{padding:'3px',borderRadius: '5px', backgroundColor: '#0d0d0c'}} className="full-time">{props.music.time}</span>
+                    <span style={{ padding: '3px', borderRadius: '5px', backgroundColor: '#0d0d0c' }} className="full-time">{props.duration}</span>
                 </Grid>
             </Grid>
 
             <Grid container direction="row" justify="center" alignItems="center">
                 <Grid item >
-                    <IconButton className={classes.root} onClick={props.previousMusic}><SkipPreviousRoundedIcon /></IconButton>
+                    <IconButton className={classes.root} onClick={() => { props.changeMusic('previous') }}><SkipPreviousRoundedIcon /></IconButton>
                 </Grid>
 
                 <Grid item >
@@ -46,7 +46,7 @@ const ControlsBar = props => {
                 </Grid>
 
                 <Grid item >
-                    <IconButton className={classes.root} onClick={props.nextMusic}><SkipNextRoundedIcon /></IconButton>
+                    <IconButton className={classes.root} onClick={() => { props.changeMusic('next') }}><SkipNextRoundedIcon /></IconButton>
                 </Grid>
 
 

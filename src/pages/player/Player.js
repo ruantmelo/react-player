@@ -3,8 +3,7 @@ import React, { Component, Fragment } from 'react'
 import './player.css'
 import getMusic, { getAllMusics, getPlaylistLength } from '../../Musicas';
 import Playlist from '../../components/Playlist';
-import ControlsBar from '../../components/ControlsBar'
-import Song from '../../components/Song'
+import Song from '../../components/Song/Song'
 import Container from '@material-ui/core/Container';
 
 
@@ -15,14 +14,8 @@ class Player extends Component {
         this.stateInicial = {
             musicID: 0,
             paused: true,
-            currentTime: 0,
         }
         this.state = { ...this.stateInicial };
-    }
-
-
-    handleCurrentTime = (value) => {
-        this.setState({ currentTime: value })
     }
 
     handlePlaylist = (id) => {
@@ -34,56 +27,49 @@ class Player extends Component {
 
     changeMusic = (option = 'next') => {
         let id = this.state.musicID;
-
+        console.log(option)
+        console.log(id)
         if (option === 'next') {
+            console.log('opa')
             if (this.state.musicID < getPlaylistLength() - 1) {
+                console.log('somado')
                 id += 1
             } else {
+                console.log('mamamia')
                 id = 0;
             }
 
         } else {
             if (this.state.musicID > 0) {
                 id -= 1
+                console.log('merthens')
             }
             else {
                 id = 0;
             }
 
         }
+
+        console.log('final ' + id)
         this.setState({
             musicID: id,
             paused: true,
         })
     }
 
-    toggle = () => {
-        const audio = document.querySelector('audio')
-        if (this.state.paused) {
-            audio.play()
-            this.setState({
-                paused: false
-            })
-        }
-        else {
-            audio.pause()
-            this.setState({
-                paused: true
-            })
-        }
-    }
-
     render() {
+        console.log(this.state)
         return (
-            <Fragment>
+            < Fragment >
                 <Container style={{ maxWidth: '500px' }}>
-                    <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
-                    <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} />
-                    <Playlist handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />
+                    <Song paused={this.state.paused} music={getMusic(this.state.musicID)} changeMusic={this.changeMusic} />
+                    {/* <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
+                    <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} /> */}
+                    <Playlist musicSelected={this.state.musicID} handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />
                 </Container>
 
 
-            </Fragment>
+            </Fragment >
 
         )
     }
