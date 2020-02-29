@@ -5,6 +5,8 @@ import getMusic, { getAllMusics, getPlaylistLength } from '../../Musicas';
 import Playlist from '../../components/Playlist';
 import ControlsBar from '../../components/ControlsBar'
 import Song from '../../components/Song'
+import Container from '@material-ui/core/Container';
+
 
 
 class Player extends Component {
@@ -28,7 +30,6 @@ class Player extends Component {
             musicID: id,
             paused: true,
         })
-
     }
 
     changeMusic = (option = 'next') => {
@@ -75,12 +76,13 @@ class Player extends Component {
     render() {
         return (
             <Fragment>
-                <div className="song-control">
+                <Container style={{ maxWidth: '500px' }}>
                     <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
                     <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} />
-                </div>
+                    <Playlist handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />
+                </Container>
 
-                <Playlist PlayerComponent={this} handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />
+
             </Fragment>
 
         )

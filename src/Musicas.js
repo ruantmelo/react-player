@@ -24,7 +24,7 @@ const playlist = [
         name: "Liberdade Provisória",
         src: "liberdade_provisoria",
         artist: "Henrique e Juliano",
-        time: "3:08"
+        time: "03:02"
 
     },
 
@@ -32,14 +32,14 @@ const playlist = [
         name: "My Truck",
         src: "my_truck",
         artist: "Breland",
-        time: "2:43"
+        time: "02:43"
     },
 
     {
         name: "Rednecker",
         src: "rednecker",
         artist: "Hardy",
-        time: "3:22"
+        time: "03:22"
 
     }
 ]

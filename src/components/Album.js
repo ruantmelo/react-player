@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 const Album = props => {
     return (
         <Fragment>
-            <img className="album img circle responsive-img pulse" alt={props.alt} src={props.src} />
+            <img className="album" alt={props.alt} src={props.src} />
         </Fragment>
 
     );
