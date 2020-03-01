@@ -25,6 +25,16 @@ class Player extends Component {
         })
     }
 
+    componentDidMount() {
+        const music = getMusic(this.state.musicID)
+        document.title = `Player | ${music.name}`
+    }
+
+    componentDidUpdate() {
+        const music = getMusic(this.state.musicID)
+        document.title = `Player | ${music.name}`
+    }
+
     changeMusic = (option = 'next') => {
         let id = this.state.musicID;
         console.log(option)
@@ -58,11 +68,10 @@ class Player extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             < Fragment >
                 <Container style={{ maxWidth: '500px' }}>
-                    <Song paused={this.state.paused} music={getMusic(this.state.musicID)} changeMusic={this.changeMusic} />
+                    <Song music={getMusic(this.state.musicID)} changeMusic={this.changeMusic} />
                     {/* <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
                     <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} /> */}
                     <Playlist musicSelected={this.state.musicID} handlePlaylist={this.handlePlaylist} musics={getAllMusics()} />

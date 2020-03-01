@@ -24,7 +24,8 @@ const playlist = [
         name: "Liberdade Provisória",
         src: "liberdade_provisoria",
         artist: "Henrique e Juliano",
-        duration: "03:02"
+        duration: 182
+        // "03:02"
 
     },
 
@@ -32,21 +33,24 @@ const playlist = [
         name: "My Truck",
         src: "my_truck",
         artist: "Breland",
-        duration: "02:43"
+        duration: 163
+        // "02:43"
     },
 
     {
         name: "Rednecker",
         src: "rednecker",
         artist: "Hardy",
-        duration: "03:22"
+        duration: 202
+        // "03:22"
+
 
     },
     {
         name: "WUBBA LUBBA DUB DUB",
         src: "wubba_lubba_dub_dub",
         artist: "Rick",
-        duration: "00:01"
+        duration: 1
     }
 ]
 

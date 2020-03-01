@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from 'react';
+import React, { Component, Fragment } from 'react';
 import Album from '../Album';
 import Typography from '@material-ui/core/Typography';
 import ControlsBar from './ControlsBar';
@@ -13,11 +13,9 @@ export class Song extends Component {
                 artist: props.music.src,
                 duration: props.music.duration,
             },
-            currentTime: 0,
             paused: true,
         };
 
-        console.log(this.state.music)
         this.changeMusic = props.changeMusic;
         // this.onTimeUpdate = props.onTimeUpdate;
         // onTimeUpdate={(e) => this.onTimeUpdate(Math.trunc(e.target.currentTime))}
@@ -34,10 +32,6 @@ export class Song extends Component {
             };
         }
         return null;
-    }
-
-    handleCurrentTime = (value) => {
-        this.setState({ currentTime: value })
     }
 
     toggle = () => {
@@ -58,13 +52,11 @@ export class Song extends Component {
 
     render() {
         const { name, src, artist, duration } = this.state.music;
-        console.log(duration)
         return (
             <Fragment>
                 <Typography align='center' variant='h6'>{`${name} - ${artist}`}</Typography>
                 <Album src={`/img/album-${src}.jpg`} alt={"Imagem da Música"} />
-                <audio onTimeUpdate={(e) => { this.handleCurrentTime(Math.trunc(e.target.currentTime)) }} onEnded={() => { this.changeMusic('next') }} src={`/songs/${src}.mp3`} ></audio>
-                <ControlsBar currentTime={this.state.currentTime} paused={this.state.paused} changeMusic={this.changeMusic} duration={duration} toggle={this.toggle} />
+                <ControlsBar src={src} currentTime={this.state.currentTime} paused={this.state.paused} changeMusic={this.changeMusic} duration={duration} toggle={this.toggle} />
             </Fragment>
         )
     }

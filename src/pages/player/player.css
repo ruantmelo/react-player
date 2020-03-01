@@ -2,9 +2,11 @@
 :root{
     --dark-yellow: rgb(182, 182, 30);
     --light-yellow: #FFF714;
+    --teste: rgba(255, 247, 20, 0.712);
     --gray-color: #52524f;
     --black-color: #0f0f0f;
-    --middle-font: 18px
+    --middle-font: 18px;
+    --white: rgba(255, 255, 255, 0.507);
 }
 
 body{

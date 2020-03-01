@@ -1,11 +1,12 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import { ListItem, makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 
+import TimeHelper from '../utils/TimeHelper'
 
-const useStyles = makeStyles({
+const listItemStyles = makeStyles({
     root: {
         borderRadius: '5px'
     },
@@ -21,24 +22,32 @@ const useStyles = makeStyles({
     }
 })
 
+const listStyles = makeStyles({
+    root: {
+        maxHeight: '100px',
+        overflowY: 'scroll'
+    }
+})
+
 
 const Playlist = props => {
-    const classes = useStyles()
+    const listItemClasses = listItemStyles()
+    const listClasses = listStyles()
     // eslint-disable-next-line no-unused-vars
     const [musics, setMusics] = useState(props.musics)
     return (
         <Container maxWidth='sm' className='playlist'>
-            <List >
+            <List classes={{ root: listClasses.root }} >
                 {musics.map((music, index) => {
                     return (
-                        <ListItem classes={{ root: classes.root, selected: classes.selected }} selected={index === props.musicSelected}
+                        <ListItem classes={{ root: listItemClasses.root, selected: listItemClasses.selected }} selected={index === props.musicSelected}
                             style={{ cursor: 'pointer' }} onClick={(e) => {
                                 props.handlePlaylist(index)
 
                             }}
                             key={index} music-id={index} src={music.src} >
-                            <ListItemText music-id={index} classes={{ primary: classes.primary, secondary: classes.secondary }}
-                                primary={music.name} secondary={`Artista: ${music.artist}  |  Duração: ${music.duration}`} />
+                            <ListItemText music-id={index} classes={{ primary: listItemClasses.primary, secondary: listItemClasses.secondary }}
+                                primary={music.name} secondary={`Artista: ${music.artist}  |  Duração: ${TimeHelper.format(music.duration)}`} />
                         </ListItem>)
                 })}
             </List>
