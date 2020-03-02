@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core';
+import TimeHelper from '../utils/TimeHelper'
 
 function ValueLabelComponent(props) {
     const { children, open, value } = props;
 
     return (
-        <Tooltip open={open} enterTouchDelay={0} placement="top" title={'00:00'}>
+        <Tooltip open={open} enterTouchDelay={0} placement="top" title={TimeHelper.format(value)}>
             {children}
         </Tooltip>
     );
@@ -26,6 +27,7 @@ const StyledSlide = withStyles({
     root: {
         color: '#FFF714',
         height: 8,
+
     },
     thumb: {
         // height: 24,
@@ -34,6 +36,7 @@ const StyledSlide = withStyles({
         // border: '2px solid currentColor',
         // marginTop: -8,
         // marginLeft: -12,
+        transition: '0.1s all ease',
         '&:hover,&$active': {
             boxShadow: '0px 0px 0px 8px rgba(255, 255, 255, 0.1)',
         },
@@ -63,15 +66,16 @@ const MySlider = props => {
     //     // (props.currentTime * 100 )/ props.duration
     // }
     return (
-        <StyledSlide value={sliderActivated ? value : props.currentTime * 100 / props.duration} onChange={(e, val) => {
-            if (!sliderActivated) {
+        <StyledSlide duration={props.duration} valueLabelFormat={(value) => (Math.trunc(value * props.duration / 100))}
+            value={sliderActivated ? value : props.currentTime * 100 / props.duration} onChange={(e, val) => {
+                if (!sliderActivated) {
 
-                setSliderActivaded(true)
-            }
-            console.log(val)
-            setValue(val);
+                    setSliderActivaded(true)
+                }
+                console.log(val)
+                setValue(val);
 
-        }}
+            }}
             onChangeCommitted={(e, val) => {
                 console.log('commit ' + val)
                 props.onChangeCommitted(value)

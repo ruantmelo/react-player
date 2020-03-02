@@ -13,11 +13,29 @@ body{
     color: white;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #FFF714;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+
+}
 
 .album{
     display: block;
     margin: 1em auto 0 auto;
     max-width: 250px;
+    min-height: 250px;
     border-radius: 50% 50%;
 }
 
