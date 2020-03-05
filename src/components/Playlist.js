@@ -30,21 +30,38 @@ const listItemStyles = makeStyles({
 const listStyles = makeStyles({
     root: {
         maxHeight: '150px',
-        overflowY: 'scroll'
+        display: 'block',
+        overflowY: 'scroll',
+        transition: '2s all ease'
     }
 })
 
+const listDenseStyles = makeStyles({
+    root: {
+        display: 'none',
+        overflowY: 'scroll',
+        transition: '2s all ease',
+        maxHeight: '0',
+
+    }
+})
+
+
 const buttonStyles = makeStyles({
     root: {
-        // background: 'red',
+        background: 'transparent',
         margin: 'auto auto',
         display: 'block',
-        textAlign: 'middle',
+        width: '100%',
+        textAlign: 'center',
         // alignItems: 'middle',
         color: 'white',
         // '&:focus': {
         //     background: 'inherit'
         // }
+        '&:focus': {
+            background: 'inherit'
+        },
         '& ': {
             display: 'inline-block'
         }
@@ -61,29 +78,37 @@ const buttonStyles = makeStyles({
 const Playlist = props => {
     const listItemClasses = listItemStyles()
     const listClasses = listStyles()
+    const listDenseClasses = listDenseStyles()
     const buttonClasses = buttonStyles()
     // eslint-disable-next-line no-unused-vars
     const [musics, setMusics] = useState(props.musics)
-    const [hidden, setHidden] = useState(true)
+    const [hidden, setHidden] = useState(false)
+
+
+
+    const toggle = () => {
+        hidden? setHidden(false) : setHidden(true);
+    }
     return (
         <Container maxWidth='sm' className='playlist'>
-            {/* <Button classes={{ root: buttonClasses.root }} endIcon={<ExpandLessRoundedIcon />}>
-                Playlist
-            </Button> */}
-            <List classes={{ root: listClasses.root }} >
-                {musics.map((music, index) => {
-                    return (
-                        <ListItem classes={{ root: listItemClasses.root, selected: listItemClasses.selected }} selected={index === props.musicSelected}
-                            style={{ cursor: 'pointer' }} onClick={(e) => {
-                                props.handlePlaylist(index)
+            <Button onClick = {toggle} classes={{ root: buttonClasses.root }} endIcon={hidden? <ExpandLessRoundedIcon/> : <ExpandMoreRoundedIcon />}>Playlist</Button>
+            
+                <List classes={{ root: hidden? listClasses.root: listDenseClasses.root }} >
+                    {musics.map((music, index) => {
+                        return (
+                            <ListItem classes={{ root: listItemClasses.root , selected: listItemClasses.selected }} selected={index === props.musicSelected}
+                                style={{ cursor: 'pointer' }} onClick={(e) => {
+                                    props.handlePlaylist(index)
 
-                            }}
-                            key={index} music-id={index} src={music.src} >
-                            <ListItemText music-id={index} classes={{ primary: listItemClasses.primary, secondary: listItemClasses.secondary }}
-                                primary={music.name} secondary={`Artista: ${music.artist}  |  Duração: ${TimeHelper.format(music.duration)}`} />
-                        </ListItem>)
-                })}
-            </List>
+                                }}
+                                key={index} music-id={index} src={music.src} >
+                                <ListItemText music-id={index} classes={{ primary: listItemClasses.primary, secondary: listItemClasses.secondary }}
+                                    primary={music.name} secondary={`Artista: ${music.artist}  |  Duração: ${TimeHelper.format(music.duration)}`} />
+                            </ListItem>)
+                    })}
+                </List>
+    
+           
         </Container>
     )
 }
