@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -36,7 +36,6 @@ const StyledSlide = withStyles({
         // border: '2px solid currentColor',
         // marginTop: -8,
         // marginLeft: -12,
-        transition: '0.1s all ease',
         '&:hover,&$active': {
             boxShadow: '0px 0px 0px 8px rgba(255, 255, 255, 0.1)',
         },
@@ -59,29 +58,38 @@ const StyledSlide = withStyles({
 const MySlider = props => {
     const [sliderActivated, setSliderActivaded] = useState(false);
     const [value, setValue] = useState(0);
+    // const [commit, setCommit] = useState(false)
+
     // const [value, setValue] = useState(0);
     // if (props.currentTime.toFixed(2) !== value && !sliderActivated) {
     //     // console.log((props.currentTime * 100) / props.duration)
     //     setValue(2)
     //     // (props.currentTime * 100 )/ props.duration
     // }
+
+    // useEffect(() => {
+    //     if (commit) {
+    //         setSliderActivaded(false)
+    //         setCommit(false)
+    //     }
+    // })
+
     return (
         <StyledSlide duration={props.duration} valueLabelFormat={(value) => (Math.trunc(value * props.duration / 100))}
             value={sliderActivated ? value : props.currentTime * 100 / props.duration} onChange={(e, val) => {
                 if (!sliderActivated) {
-
                     setSliderActivaded(true)
                 }
-                console.log(val)
+                console.log('onchange')
                 setValue(val);
 
             }}
             onChangeCommitted={(e, val) => {
-                console.log('commit ' + val)
                 props.onChangeCommitted(value)
                 setValue(val);
-
                 setSliderActivaded(false)
+
+
 
             }}
 
@@ -115,5 +123,5 @@ const MySlider = props => {
 
 }
 
-
+export { StyledSlide };
 export default MySlider;

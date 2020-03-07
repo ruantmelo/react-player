@@ -48,8 +48,34 @@ body{
 /* ******************************************* */
 /* MEXENDO NA PLAYLIST */
 /* ******************************************* */
+/* style={{ zIndex: '9999' , background: 'black', position: 'absolute',  height: '50px' }} */
 
+.volumeBar{
+    display: none;
+    z-index: 9999;
+    background-color: #161717;
+    position: absolute;
+    transform: translateY(-100%);
+    top: 0;
+    padding: 1em;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
 
+.volumeBar:hover{
+    display: block;
+}
+
+.volumeBar::after{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #161717;
+    transform: translateY(50%) translateX(-50%) rotate(45deg);
+    bottom: 0;
+    left: 50%;
+}
 
 
 /* .playlist .lista > li{

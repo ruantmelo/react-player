@@ -34,6 +34,10 @@ export class Song extends Component {
         return null;
     }
 
+    handleAudio = (value) => {
+        this.setState({ paused: value })
+
+    }
     toggle = () => {
         const audio = document.querySelector('audio')
         if (this.state.paused) {
@@ -54,9 +58,9 @@ export class Song extends Component {
         const { name, src, artist, duration } = this.state.music;
         return (
             <Fragment>
-                <Typography align='center' variant='h6'>{`${name} - ${artist}`}</Typography>
+                <Typography align='center' component='h2' style={{ fontSize: '16px' }}>{`${name} - ${artist}`}</Typography>
                 <Album src={`/img/album-${src}.jpg`} alt={"Imagem da Música"} />
-                <ControlsBar src={src} currentTime={this.state.currentTime} paused={this.state.paused} changeMusic={this.changeMusic} duration={duration} toggle={this.toggle} />
+                <ControlsBar handleAudio={this.handleAudio} src={src} currentTime={this.state.currentTime} paused={this.state.paused} changeMusic={this.changeMusic} duration={duration} toggle={this.toggle} />
             </Fragment>
         )
     }

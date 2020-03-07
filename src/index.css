@@ -17,7 +17,7 @@ body {
   /* background-image: linear-gradient(to right, black , black 50%, #2f3640 50%,  #2f3640); */
   background-color: var(--main-bg-color);
   /* background-repeat: no-repeat; */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   position: relative;
 }
 

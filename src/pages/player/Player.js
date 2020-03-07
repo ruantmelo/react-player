@@ -13,7 +13,6 @@ class Player extends Component {
         super(props)
         this.stateInicial = {
             musicID: 0,
-            paused: true,
         }
         this.state = { ...this.stateInicial };
     }
@@ -21,7 +20,6 @@ class Player extends Component {
     handlePlaylist = (id) => {
         this.setState({
             musicID: id,
-            paused: true,
         })
     }
 
@@ -37,22 +35,16 @@ class Player extends Component {
 
     changeMusic = (option = 'next') => {
         let id = this.state.musicID;
-        console.log(option)
-        console.log(id)
         if (option === 'next') {
-            console.log('opa')
             if (this.state.musicID < getPlaylistLength() - 1) {
-                console.log('somado')
                 id += 1
             } else {
-                console.log('mamamia')
                 id = 0;
             }
 
         } else {
             if (this.state.musicID > 0) {
                 id -= 1
-                console.log('merthens')
             }
             else {
                 id = 0;
@@ -60,7 +52,6 @@ class Player extends Component {
 
         }
 
-        console.log('final ' + id)
         this.setState({
             musicID: id,
             paused: true,
@@ -70,7 +61,7 @@ class Player extends Component {
     render() {
         return (
             < Fragment >
-                <Container style={{ maxWidth: '500px' }}>
+                <Container style={{ boxShadow: '0px 1px 0px 2px gray', maxWidth: '400px', borderRadius: '5px', paddingTop: '1em' }}>
                     <Song music={getMusic(this.state.musicID)} changeMusic={this.changeMusic} />
                     {/* <Song onTimeUpdate={this.handleCurrentTime} paused={this.state.paused} onEnded={this.changeMusic} {...getMusic(this.state.musicID)} />
                     <ControlsBar currentTime={this.state.currentTime} music={getMusic(this.state.musicID)} previousMusic={() => this.changeMusic('previous')} nextMusic={() => this.changeMusic('next')} paused={this.state.paused} toggle={this.toggle} /> */}
